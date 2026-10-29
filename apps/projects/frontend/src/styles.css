@@ -1,0 +1,15 @@
+/* ProjectsCraft's styles on the suite's fonts, tokens and frame (@plantcraft/ui). */
+@import "@plantcraft/ui/fonts.css";
+@import "@plantcraft/ui/tokens.css";
+@import "@plantcraft/ui/shell.css";
+@import "@plantcraft/ui/base.css";
+
+
+/* The note form: the text takes the whole row, the button sits under the fields. */
+.form-wide { grid-column: 1 / -1; }
+.form-actions { margin-top: 14px; }
+
+/* The switchboard board reads the site's timing tokens (src/ds/universe.js cssTokens). */
+.sb-scope { --t-second: 1000ms; --t-step: 291.667ms; --ease: cubic-bezier(0.2, 0.7, 0.2, 1); }
+.projects-board-step { display: grid; gap: 6px; margin-bottom: 14px; }
+.projects-board-name { display: flex; align-items: center; gap: 8px; }

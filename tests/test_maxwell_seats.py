@@ -1,6 +1,5 @@
-from processcraft.platform.workspace import Workspace
-
 from maxwell.seats import SEATS, ensure_seats
+from processcraft.platform.workspace import Workspace
 
 
 def test_seats_sign_in_and_a_second_run_keeps_passwords(tmp_path, monkeypatch):

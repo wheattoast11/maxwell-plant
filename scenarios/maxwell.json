@@ -8,7 +8,7 @@
     "timezone": "America/Sao_Paulo"
   },
   "storage": {
-    "sqlite_path": "/var/home/zero/.local/share/maxwell-plant/workspace.sqlite3"
+    "sqlite_path": "~/.local/share/maxwell-plant/workspace.sqlite3"
   },
   "analysis": {
     "interval_minutes": 10,
