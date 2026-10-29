@@ -2,3 +2,6 @@ PlantCraft
 Copyright 2026 The PlantCraft authors
 
 This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Maxwell Plant is based on PlantCraft (https://github.com/PlantCraft/PlantCraft),
+forked at a2a1851d68e73709ea619e86b1245de000f219be. Changes are on branch maxwell.
