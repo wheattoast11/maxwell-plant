@@ -12,3 +12,8 @@ export interface Note extends NoteDraft {
   /** The asset's name in PlantCraft (on the note's own page and after a change). */
   asset_name?: string;
 }
+
+export type Item = { ref: string; kind: "whiteboard" | "canvas" | "tasks" | "research"; title: string; status: string; steps: number; step: number; updated_at: string; linked?: boolean };
+export type Loose = Item & { refs: string[]; suggest: string | null };
+export type Project = { id: string; title: string; origin: "maxwell" | "here"; updated_at: string; items: Item[]; archived: number; steps: number; done: number };
+export type Portfolio = { projects: Project[]; loose: Loose[]; hidden: number; connected: boolean };

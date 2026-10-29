@@ -1,6 +1,6 @@
-# AGENTS.md: ProjectsCraft, the starting point for an app of your own
+# AGENTS.md: Projects, every Maxwell project in one list
 
-This folder is a working app of the PlantCraft suite, made to be copied: **ProjectsCraft**
+This folder is the Projects app of the Maxwell suite (a fork of PlantCraft), built from its app template: **Projects**
 (`projects`, prefix `/projects/`, port 9120, uid 20120) keeps a note on any asset of the plant.
 It has every part a suite app has and nothing else, so an agent (Claude Code or another) can turn
 it into a new app in one session and try it inside the platform.

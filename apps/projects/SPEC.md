@@ -1,4 +1,4 @@
-# SPEC: ProjectsCraft
+# SPEC: Projects
 
 What the app does and the public sources it relies on (AGENTS.md, "Clean room"). An app made from
 the template replaces this file with its own.

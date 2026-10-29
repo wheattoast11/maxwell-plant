@@ -1,4 +1,4 @@
-# ROADMAP: ProjectsCraft
+# ROADMAP: Projects
 
 | Item | State |
 |---|---|

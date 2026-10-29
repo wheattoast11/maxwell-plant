@@ -1,4 +1,4 @@
-"""Shared fixtures: the fake PlantCraft of ``tests/plant.py`` and a ProjectsCraft wired to it."""
+"""Shared fixtures: the fake PlantCraft of ``tests/plant.py`` and a Projects wired to it."""
 
 from __future__ import annotations
 

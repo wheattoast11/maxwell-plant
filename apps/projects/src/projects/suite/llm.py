@@ -1,4 +1,4 @@
-"""ProjectsCraft's one use of a language model, ``summary`` (``[[contributes.llm]]``, off until an
+"""Projects's one use of a language model, ``summary`` (``[[contributes.llm]]``, off until an
 administrator gives it a model in Setup › Language models). PlantCraft holds the keys and picks
 the model; the app sends only the note's text."""
 
@@ -18,7 +18,7 @@ class NoModel(Exception):
 
 def summary(client: Any, text: str) -> str:
     if client is None:
-        raise NoModel("This installation gave ProjectsCraft no app key.")
+        raise NoModel("This installation gave Projects no app key.")
     try:
         return str(client.llm(USE, text, system=SYSTEM)["text"])
     except PlantCraftError as exc:

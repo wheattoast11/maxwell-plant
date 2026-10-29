@@ -1,4 +1,4 @@
-"""The only place ProjectsCraft talks to PlantCraft on its own behalf (PlantCraft
+"""The only place Projects talks to PlantCraft on its own behalf (PlantCraft
 ``docs/app-standard.md``, section 5): the events it writes, the follow-ups it puts in Desk and
 the model it asks. Each part is one module; ``Suite`` joins them for the runtime.
 
@@ -16,7 +16,7 @@ from projects.suite import desk, events, llm
 
 
 class Suite:
-    """What ProjectsCraft sends to PlantCraft; ``client`` answers the service client or None."""
+    """What Projects sends to PlantCraft; ``client`` answers the service client or None."""
 
     def __init__(self, client: Callable[[], Any]):
         self._client = client

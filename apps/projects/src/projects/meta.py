@@ -1,4 +1,4 @@
-"""ProjectsCraft's ``app.toml`` and help pages (``plantcraft_sdk.server.files``).
+"""Projects's ``app.toml`` and help pages (``plantcraft_sdk.server.files``).
 
 Found in ``PROJECTS_APP_DIR`` (``/app`` in the image), else in the source checkout. The help
 browser files each guide in its folder, in this order.

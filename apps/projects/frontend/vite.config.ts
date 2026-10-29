@@ -1,7 +1,7 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
-// ProjectsCraft is served under /projects/ behind the suite's proxy (PlantCraft owns /).
+// Projects is served under /projects/ behind the suite's proxy (PlantCraft owns /).
 export default defineConfig({
   base: "/projects/",
   plugins: [react()],

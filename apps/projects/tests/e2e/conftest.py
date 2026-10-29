@@ -1,4 +1,4 @@
-"""E2E fixtures: FakePlantCraft and ProjectsCraft served over HTTP, and a headless Chromium
+"""E2E fixtures: FakePlantCraft and Projects served over HTTP, and a headless Chromium
 (``plantcraft_sdk.e2e``: the fake in a forked server, the app in a uvicorn thread with the built
 interface, the browser signed in with PlantCraft's cookie). ``PROJECTS_E2E_REQUIRED=1`` makes a
 missing tool a failure; ``PROJECTS_E2E_SCREENSHOTS`` names a folder for screenshots.
@@ -45,7 +45,7 @@ def app_url(fake, tmp_path_factory):
         )
         runtime.start()
         try:
-            with e2e.serving(create_app(runtime), "ProjectsCraft") as url:
+            with e2e.serving(create_app(runtime), "Projects") as url:
                 yield url
         finally:
             runtime.shutdown()

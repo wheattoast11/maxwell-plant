@@ -1,8 +1,8 @@
 import { SuiteShell, signOut, useSuiteSession } from "@plantcraft/ui";
 import { useEffect, useMemo, useState } from "react";
 import { api, UNAUTHORIZED_EVENT } from "./api";
-import { BoardPage } from "./BoardPage";
 import { NotePage, NotesPage } from "./NotesPage";
+import { PortfolioPage, ProjectPage } from "./PortfolioPage";
 import { HelpView } from "./SuitePages";
 import { t } from "./i18n";
 import { href, navigate, usePath } from "./nav";
@@ -14,9 +14,10 @@ function Route({ path, me }: { path: string; me: Me }) {
   const [, section, id] = path.split("/").map((part) => decodeURIComponent(part));
   if (section === "notes" && id) return <NotePage key={id} noteId={id} me={me} />;
   if (section === "assets" && id) return <NotesPage key={id} assetId={id} me={me} />;
-  if (section === "board") return <BoardPage />;
+  if (section === "p" && id) return <ProjectPage key={id} projectId={id} />;
+  if (section === "notes") return <NotesPage me={me} />;
   if (section === "help") return <HelpView pageId={id || undefined} />;
-  if (!section) return <NotesPage me={me} />;
+  if (!section) return <PortfolioPage />;
   return <ErrorBox text={t("Page not found.")} />;
 }
 
@@ -31,8 +32,7 @@ export function App() {
   const tour = useMemo(() => (me ? () => tourSteps() : undefined), [me]);
   return <SuiteShell
     app="projects"
-    appName="ProjectsCraft"
-    subtitle={t("Example")}
+    appName="Projects"
     nav={NAV.map((item) => ({ ...item, label: t(item.label) }))}
     path={path}
     href={href}

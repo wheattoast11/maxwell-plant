@@ -63,7 +63,7 @@ ARG REVISION=unknown
 ARG CREATED=unknown
 
 LABEL org.opencontainers.image.title="projects" \
-      org.opencontainers.image.description="The smallest app of the PlantCraft suite: a note on any asset of the plant." \
+      org.opencontainers.image.description="Every Maxwell project in one list, and a notebook on the plant's assets." \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.revision="${REVISION}" \
       org.opencontainers.image.created="${CREATED}" \

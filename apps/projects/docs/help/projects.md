@@ -1,22 +1,30 @@
-# ProjectsCraft
+# Projects
 
-ProjectsCraft keeps a note on any asset of the plant: a reading taken in the field, a reminder for
-the next shift, what was changed on a loop and why.
+Every project in one place: the whiteboards, process boxes, task lists and research that belong
+to it, wherever in Maxwell they were made.
 
-## Notes
+## Projects
 
-**Notes** lists every note, newest first, with its asset. Type in the filter to narrow the list,
-or press Ctrl+K anywhere in the suite and type a word of the note.
+Each card is a project. Its gear has one tooth per item, filled as the work on them gets done.
+Open a card to see its items, sort them, and move one to another project.
 
-- **New note**: pick the asset from PlantCraft's asset tree and write the text (up to 4,000
-  characters). Editors and admins can write notes; viewers read them.
-- **Change or delete** a note from its row. Every change is recorded in PlantCraft's audit log,
-  with who made it and when.
+Projects from Maxwell (its dossiers) appear by themselves, with the whiteboards Maxwell already
+filed under them.
 
-A note names its asset; it does not copy it. When the asset is renamed in PlantCraft, the note
-shows the new name. When the asset is removed, the note stays and shows the asset's id.
+## Not in a project yet
 
-## Make your own app
+Under the cards is everything that does not belong to a project yet. For each one you can:
 
-ProjectsCraft is the template of the suite's apps: copy it, give it a name (`make rename
-NAME=Logbook`) and follow the prompts in its `prompts/` folder.
+- **Add to** the project Projects suggests, when its name shares a word with that project;
+- **Move to** any project from the list;
+- **New project**: start a project named after it, with the item in it.
+
+You can also drag an item onto a card. Items with the same name move together.
+
+Archived items are counted, not shown.
+
+## Notebook
+
+**Notebook** keeps a short note on any asset of the plant: a reading taken in the field, a
+reminder for the next shift. Editors write notes; viewers read them. Every change is recorded in
+the audit log.

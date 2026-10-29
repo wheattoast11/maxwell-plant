@@ -19,7 +19,7 @@ An app made from this template: state here how its security fixes are released.
 
 ## Scope and design notes
 
-- **No plant connections, no plant writes.** ProjectsCraft never talks to a DCS,
+- **No plant connections, no plant writes.** Projects never talks to a DCS,
   PLC, historian or OPC UA server. Its only outbound connection is to the
   PlantCraft named by `PLANTCRAFT_URL`, through `plantcraft_sdk.client`
   (`tests/test_suite_rules.py` fails on any other network module). It writes only
@@ -33,7 +33,7 @@ An app made from this template: state here how its security fixes are released.
 - **App key.** The service token comes from an app key an admin creates in
   PlantCraft. Give it as a file (`PLANTCRAFT_APP_KEY_FILE`, a Docker secret
   in the suite's compose file) or `PLANTCRAFT_APP_KEY`; it is never logged or
-  stored by ProjectsCraft.
+  stored by Projects.
 - **Audit.** Every note created, changed or deleted is recorded in PlantCraft's
   audit log (action `projects.note.*`).
 - **Limits.** A note holds up to 4,000 characters; `tests/test_suite_rules.py`

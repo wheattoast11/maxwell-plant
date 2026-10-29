@@ -91,7 +91,7 @@ def default_uid(app_id: str) -> int:
 
 
 APP_ID = r"^[a-z][a-z0-9]{2,30}$"
-NAME = r"^((PlantCraft|PlantCraft)( [A-Z][A-Za-z]{1,30})?|[A-Z][A-Za-z]*Craft)$"
+NAME = r"^((PlantCraft|Maxwell)( [A-Z][A-Za-z]{1,30})?|[A-Z][A-Za-z]*Craft)$"
 SEMVER = (
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
     r"(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$"

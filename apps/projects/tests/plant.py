@@ -1,5 +1,5 @@
 """The plant tests read: the suite's test plant (``plantcraft_sdk.testplant``: the Simulator's
-loops as assets and 12 hours of their signals ending at ``NOW``) served to ProjectsCraft,
+loops as assets and 12 hours of their signals ending at ``NOW``) served to Projects,
 and its four users (admin, engineer, operator, outsider)."""
 
 from __future__ import annotations
@@ -29,9 +29,9 @@ MANIFEST = tomllib.loads((Path(__file__).parents[1] / "app.toml").read_text(enco
 
 
 def make_fake(**options) -> FakePlantCraft:
-    """The test plant, with what ProjectsCraft's ``app.toml`` contributes already sent (as the
+    """The test plant, with what Projects's ``app.toml`` contributes already sent (as the
     app does when it starts): an event, feed, to-do or model use it does not declare is refused."""
 
-    fake = plant_fake("projects", "ProjectsCraft", "/projects/", **options)
+    fake = plant_fake("projects", "Projects", "/projects/", **options)
     fake.client(None, app="projects", key=APP_KEY).put_contributions(contributions(MANIFEST))
     return fake

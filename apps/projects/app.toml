@@ -1,18 +1,16 @@
-# ProjectsCraft's manifest: the single source of its metadata (the suite's app standard, section 4).
+# Projects's manifest: the single source of its metadata (the suite's app standard, section 4).
 # The launcher card, the Apps page, the package manifest, the image labels and /api/meta read it.
-# `make rename NAME=Logbook` makes it LogbookCraft (`logbook`, prefix /logbook/) everywhere.
 
 [app]
 id = "projects"
-name = "ProjectsCraft"
+name = "Maxwell Projects"
 version = "0.1.0"
-category = "Example"
-summary = "The smallest app of the PlantCraft suite: a note on any asset of the plant."
+category = "Engineering"
+summary = "Every Maxwell project in one list, and a notebook on the plant's assets."
 description = """\
-A starting point for an app of one's own: notes on the assets of PlantCraft's asset tree, \
-listed, searched (Ctrl+K) and kept in the app's own database. It shows every part an app of the \
-suite has: the manifest, the server on the SDK, the interface on the suite's frame, the help \
-pages, the tests and the signed package."""
+Every project in one list: Maxwell's dossiers, whiteboards, process boxes, task lists and research \
+workspaces, grouped by project. Move an item onto a project, or start a project from it. The \
+Notebook keeps notes on the assets of the plant."""
 # "Dev Publisher" matches PlantCraft's development key (`make dev-package`); a real release names
 # the company whose key the stack trusts (prompts/05-package-and-install.md).
 publisher = "Dev Publisher"
@@ -44,7 +42,7 @@ outbound = []
 [publishes]
 results = []
 
-# The events ProjectsCraft writes (PlantCraft docs/app-standard.md, section 6): declared here,
+# The events Projects writes (PlantCraft docs/app-standard.md, section 6): declared here,
 # written by name through EventCatalog, judged only by Alarms. Delete it with the notes.
 [[publishes.events]]
 name = "note.written"
@@ -57,7 +55,7 @@ payload = { note = "Note id" }
 [consumes]
 results = []
 
-# What ProjectsCraft adds to PlantCraft (PlantCraft docs/app-standard.md, section 4b): one example
+# What Projects adds to PlantCraft (PlantCraft docs/app-standard.md, section 4b): one example
 # of each, all from the notes. PlantCraft draws them without knowing the app; delete what yours
 # does not need, with its module in suite/.
 [contributes.search]                # Ctrl+K: api/routers/search.py
@@ -85,7 +83,7 @@ url = "/projects/notes/{id}"
 
 [[contributes.widgets]]             # Overview and Desk's Today: api/routers/widgets.py
 id = "count"
-title = "ProjectsCraft: notes"
+title = "Projects: notes"
 description = "How many notes there are."
 size = "s"
 kind = "number"
@@ -93,7 +91,7 @@ default = true
 
 [[contributes.widgets]]
 id = "latest"
-title = "ProjectsCraft: latest notes"
+title = "Projects: latest notes"
 description = "The newest notes, each one click away."
 size = "m"
 kind = "list"

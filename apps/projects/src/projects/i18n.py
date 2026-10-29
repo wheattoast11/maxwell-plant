@@ -1,6 +1,6 @@
 """One hook for user-facing text: ``t("Dashboard {name} not found.", name=name)``.
 
-ProjectsCraft is English only for now. Every string a
+Projects is English only for now. Every string a
 person reads still goes through ``t()`` so a catalog can be installed later
 without touching the call sites.
 """

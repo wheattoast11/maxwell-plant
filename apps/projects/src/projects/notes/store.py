@@ -40,7 +40,7 @@ class NoteStore(Store):
 
     def __init__(self, db: Any):
         super().__init__(db)
-        # A database of ProjectsCraft 0.1 has no follow-up yet.
+        # A database of Projects 0.1 has no follow-up yet.
         with self._lock, self._connect() as connection:
             known = {row[1] for row in connection.execute("PRAGMA table_info(notes)")}
             for column in ("follow_up", "follow_up_by"):

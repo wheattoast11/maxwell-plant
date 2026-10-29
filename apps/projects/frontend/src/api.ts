@@ -1,14 +1,16 @@
-import { createApiClient, jsonBody, query, type HelpEntry, type HelpPage } from "@plantcraft/ui";
+import { configureFolders, createApiClient, jsonBody, query, type HelpEntry, type HelpPage } from "@plantcraft/ui";
 import { href } from "./nav";
-import type { Me, Note, NoteDraft } from "./types";
+import type { Me, Note, NoteDraft, Portfolio } from "./types";
 
 const client = createApiClient({ app: "projects", href });
 export const UNAUTHORIZED_EVENT = client.UNAUTHORIZED_EVENT;
 const request = client.request;
+configureFolders({ request, href, listPath: () => "/" });
 const id = encodeURIComponent;
 
 export const api = {
   me: () => request<Me>("/api/me"),
+  portfolio: () => request<Portfolio>("/api/portfolio"),
   notes: (asset?: string) => request<Note[]>(`/api/notes${query({ asset })}`),
   note: (noteId: string) => request<Note>(`/api/notes/${id(noteId)}`),
   create: (draft: NoteDraft) => request<Note>("/api/notes", jsonBody("POST", draft)),

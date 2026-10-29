@@ -1,1 +1,1 @@
-"""ProjectsCraft's web API and the server of its interface."""
+"""Projects's web API and the server of its interface."""

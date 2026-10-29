@@ -1,7 +1,7 @@
 # Third-party assets and libraries
 
 Every third-party asset (font, icon, image, dataset) and every direct dependency
-has a row here (AGENTS.md, "Clean room"). The ProjectsCraft mark (`docs/images/logo.svg`,
+has a row here (AGENTS.md, "Clean room"). The Projects mark (`docs/images/logo.svg`,
 `frontend/public/favicon.svg`), the suite frame `@plantcraft/ui` (vendored package: tokens,
 fonts setup, sidebar, help browser, brand marks, chart colours) is original work of the
 PlantCraft authors (Apache-2.0).
@@ -21,7 +21,6 @@ PlantCraft authors (Apache-2.0).
 | Plotly.js (`plotly.js-cartesian-dist-min`), `react-plotly.js` | MIT |
 | `@plantcraft/ui` (vendored package, PlantCraft authors) | Apache-2.0 |
 | Vite, Vitest, TypeScript, jsdom (build and test only) | MIT |
-| Switchboard board pieces `frontend/src/switchboard/*.js[x]` (Intuition Labs, copied from intuitionlabs-site `src/ds/switchboard`, pinned in `SOURCE.json`) | AGPL-3.0-or-later |
 
 ## Python libraries
 

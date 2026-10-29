@@ -1,6 +1,6 @@
-<p align="center"><img src="docs/images/logo.svg" width="72" height="72" alt="ProjectsCraft"></p>
+<p align="center"><img src="docs/images/logo.svg" width="72" height="72" alt="Projects"></p>
 
-# ProjectsCraft: the app template of PlantCraft
+# Projects: every Maxwell project in one list
 
 The smallest complete app of the [PlantCraft](https://github.com/PlantCraft/PlantCraft)
 suite, made to be copied. It keeps a note on any asset of the plant: listed, searched (Ctrl+K),

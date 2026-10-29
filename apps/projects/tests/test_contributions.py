@@ -1,4 +1,4 @@
-"""What ProjectsCraft adds to PlantCraft (``app.toml [contributes]``, ``projects.suite``): the
+"""What Projects adds to PlantCraft (``app.toml [contributes]``, ``projects.suite``): the
 follow-ups on Desk's calendar and in a person's to-do, the summary from a model, and what a
 ``#projects_note:<id>`` names."""
 

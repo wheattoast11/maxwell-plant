@@ -1,4 +1,4 @@
-"""The events ProjectsCraft writes, by the names its ``app.toml`` declares (``[[publishes.events]]``),
+"""The events Projects writes, by the names its ``app.toml`` declares (``[[publishes.events]]``),
 through ``EventCatalog``: a name or a payload field the manifest does not declare is refused here,
 before PlantCraft sees it. One function per event."""
 

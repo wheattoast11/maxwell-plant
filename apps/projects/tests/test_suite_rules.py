@@ -21,11 +21,14 @@ FLOORS = tomllib.loads((ROOT / "tests" / "floors.toml").read_text(encoding="utf-
 # | 1 | suite (what the app sends to PlantCraft: events, Desk, language model) |
 # | 2 | notes (the app's own object, its store and its service) |
 # | 3 | api, cli |
-LAYERS = {"i18n": -1, "config": 0, "meta": 0, "workpiece": 0, "suite": 1, "notes": 2, "api": 3, "cli": 3}
+LAYERS = {"i18n": -1, "config": 0, "meta": 0, "workpiece": 0, "suite": 1, "notes": 2, "portfolio": 2, "api": 3, "cli": 3}
 
 
 def test_offline_by_default():
-    assert not apptest.offline_problems(ROOT, "projects")
+    # The portfolio reads the Maxwell portal database, read-only, when a DSN is configured.
+    assert not apptest.offline_problems(
+        ROOT, "projects", network_modules=("api/runtime.py", "portfolio/sources.py")
+    )
 
 
 def test_layers_only_point_down_and_plant_data_comes_from_processcraft():

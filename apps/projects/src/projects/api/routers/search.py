@@ -1,4 +1,4 @@
-"""HTTP routes: ProjectsCraft's part of the suite's search (Ctrl+K, PlantCraft's
+"""HTTP routes: Projects's part of the suite's search (Ctrl+K, PlantCraft's
 docs/app-standard.md section 10): its notes, by text or asset, each ``href`` the note's page."""
 
 from __future__ import annotations

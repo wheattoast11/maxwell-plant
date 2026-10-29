@@ -1,4 +1,4 @@
-"""HTTP routes: ProjectsCraft's widgets, for its Overview and Desk's Today (PlantCraft's
+"""HTTP routes: Projects's widgets, for its Overview and Desk's Today (PlantCraft's
 docs/widgets.md). Declared in app.toml ``[[contributes.widgets]]``; each answer is one of the
 suite's shapes, built by ``plantcraft_sdk.widgets``."""
 

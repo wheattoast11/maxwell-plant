@@ -1,4 +1,4 @@
-"""What ProjectsCraft puts in Desk (PlantCraft ``plantcraft_sdk.desk``): the notes that ask for
+"""What Projects puts in Desk (PlantCraft ``plantcraft_sdk.desk``): the notes that ask for
 a follow-up, on the calendar feed ``follow-ups`` and as a to-do of kind ``follow-up`` for the
 person named. Both are declared in ``app.toml`` (``[[contributes.calendar]]``,
 ``[[contributes.todo]]``); PlantCraft refuses what is not."""

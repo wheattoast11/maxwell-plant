@@ -1,4 +1,4 @@
-"""The ProjectsCraft web application: API and built interface under ``/projects``.
+"""The Projects web application: API and built interface under ``/projects``.
 
 The endpoints every app serves (``/healthz``, ``/api/meta``, ``/api/help``, ``assets/<id>``),
 the interface and its sign-in redirects come from ``plantcraft_sdk.server.web``; this module
@@ -15,7 +15,7 @@ from plantcraft_sdk.auth import User
 from plantcraft_sdk.server import web
 
 from projects import APP_ID, __version__
-from projects.api.routers import notes, refs, search, widgets
+from projects.api.routers import notes, portfolio, refs, search, widgets
 from projects.api.runtime import Runtime
 from projects.config import Settings
 from projects.meta import FILES
@@ -37,10 +37,10 @@ def create_app(runtime: Runtime | None = None) -> FastAPI:
 
     api = web.suite_api(
         runtime,
-        title="ProjectsCraft",
+        title="Projects",
         version=__version__,
         files=FILES,
-        routers=(notes.router, search.router, refs.router, widgets.router),
+        routers=(portfolio.router, portfolio.folders, notes.router, search.router, refs.router, widgets.router),
         ui=ui_folder(),
         me=me,
     )
