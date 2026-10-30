@@ -5,13 +5,12 @@ import type { Portfolio } from "./types";
 
 const DATA: Portfolio = {
   connected: true, hidden: 14,
-  projects: [{ id: "f1", title: "IrO2 crystal structure prediction", origin: "maxwell", updated_at: "", archived: 1, steps: 0, done: 0,
-    items: [{ ref: "whiteboard:w1", kind: "whiteboard", title: "IrO2 digest probe", status: "active", steps: 0, step: 0, updated_at: "", linked: true }] }],
+  projects: [{ id: "f1", title: "IrO2 crystal structure prediction", dossier: "active", updated_at: "", archived: 1, steps: 0, done: 0,
+    items: [{ ref: "whiteboard:w1", kind: "whiteboard", title: "IrO2 digest probe", status: "active", steps: 0, step: 0, updated_at: "" }] }],
   loose: [{ ref: "canvas:c1", refs: ["canvas:c1"], kind: "canvas", title: "IrO2 interface bench", status: "active", steps: 0, step: 0, updated_at: "", suggest: "f1" }],
 };
-const move = vi.fn(async () => ({ place: null }));
-vi.mock("./api", () => ({ api: { portfolio: async () => DATA } }));
-vi.mock("@plantcraft/ui", async (real) => ({ ...(await real<object>()), folderApi: { move, create: vi.fn() } }));
+const file = vi.fn(async () => DATA);
+vi.mock("./api", () => ({ api: { portfolio: async () => DATA, file, startProject: vi.fn(async () => DATA) } }));
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -26,6 +25,6 @@ describe("the projects home", () => {
     expect(host.textContent).toContain("14 archived items are not shown.");
     const add = [...host.querySelectorAll("button")].find((b) => b.textContent?.startsWith("Add to")) as HTMLButtonElement;
     await act(async () => add.click());
-    expect(move).toHaveBeenCalledWith("item", "canvas:c1", "f1");
+    expect(file).toHaveBeenCalledWith(["canvas:c1"], "f1");
   });
 });

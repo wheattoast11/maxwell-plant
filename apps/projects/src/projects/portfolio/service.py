@@ -1,4 +1,4 @@
-"""One list of projects out of the five places Maxwell project work lives today."""
+"""One list of projects: portal_projects, and every whiteboard, process box, task list and research workspace by dossier_id."""
 
 from __future__ import annotations
 
@@ -6,85 +6,82 @@ import re
 import threading
 import time
 import unicodedata
-from collections.abc import Callable
-from typing import Any
+from typing import Any, Protocol
 
-from plantcraft_sdk.server.folders import FolderStore
-
-KIND = "item"
 CACHE_SECONDS = 30.0
+
+
+class Source(Protocol):
+    def read(self) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
+    def file(self, refs: list[str], slug: str | None) -> int: ...
+    def create(self, title: str, by: str) -> str: ...
 
 
 def words(title: str) -> set[str]:
     return {w for w in re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKC", title).lower()) if len(w) > 2}
 
 
-def view(items: list[dict[str, Any]], folders: list[dict[str, Any]], placed: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    """Every project is a folder; a dossier's folder carries its title, so linked boards land in it."""
-    dossiers = {i["ref"]: i["title"] for i in items if i["kind"] == "dossier"}
-    by_name = {f["name"]: f["folder_id"] for f in folders}
-    projects = {f["folder_id"]: {"id": f["folder_id"], "title": f["name"], "updated_at": f["created_at"],
-                                 "origin": "maxwell" if f["name"] in dossiers.values() else "here",
-                                 "items": [], "archived": 0} for f in folders}
-    titles = {pid: words(p["title"]) for pid, p in projects.items()}
+def view(projects: list[dict[str, Any]], items: list[dict[str, Any]]) -> dict[str, Any]:
+    out = {p["slug"]: {"id": p["slug"], "title": p["title"], "updated_at": p["updated_at"],
+                       "dossier": p["dossier"], "items": [], "archived": 0} for p in projects}
+    titles = {slug: words(p["title"]) for slug, p in out.items()}
     loose: dict[str, dict[str, Any]] = {}
     hidden = 0
-    for i in items:
-        if i["kind"] == "dossier":
-            continue
-        home = (placed.get(i["ref"]) or {}).get("folder_id") or by_name.get(dossiers.get(i["project"] or "", ""))
-        archived = i["status"] == "archived"
-        if home in projects:
-            p = projects[home]
-            if archived:
-                p["archived"] += 1
+    for row in items:
+        i = {"ref": f"{row['kind']}:{row['id']}", "kind": row["kind"], "title": (row["title"] or "").strip() or "untitled",
+             "status": row["status"], "steps": int(row["steps"]), "step": int(row["done"]), "updated_at": row["updated_at"] or ""}
+        home = out.get(row["dossier_id"] or "")
+        if i["status"] == "archived":
+            if home:
+                home["archived"] += 1
             else:
-                p["items"].append({**i, "linked": not placed.get(i["ref"])})
-                p["updated_at"] = max(p["updated_at"], i["updated_at"])
-        elif archived:
-            hidden += 1
+                hidden += 1
+        elif home:
+            home["items"].append(i)
+            home["updated_at"] = max(home["updated_at"], i["updated_at"])
         else:
-            group = loose.setdefault(i["title"], {**i, "refs": [], "suggest": None})
+            group = loose.setdefault(i["title"], {**i, "refs": []})
             group["refs"].append(i["ref"])
             group["updated_at"] = max(group["updated_at"], i["updated_at"])
     for group in loose.values():
         w = words(group["title"])
-        group["suggest"] = next((pid for pid, t in titles.items() if t & w), None)
-    for p in projects.values():
-        p["steps"] = sum(i["steps"] for i in p["items"])
-        p["done"] = sum(i["step"] for i in p["items"])
+        group["suggest"] = next((slug for slug, t in titles.items() if t & w), None)
+    for p in out.values():
+        p["steps"], p["done"] = sum(i["steps"] for i in p["items"]), sum(i["step"] for i in p["items"])
     newest = lambda x: x["updated_at"]  # noqa: E731
-    return {"projects": sorted(projects.values(), key=newest, reverse=True),
+    return {"projects": sorted(out.values(), key=newest, reverse=True),
             "loose": sorted(loose.values(), key=newest, reverse=True), "hidden": hidden}
 
 
 class Portfolio:
-    def __init__(self, folders: FolderStore, reader: Callable[[], list[dict[str, Any]]] | None):
-        self.folders, self.reader = folders, reader
+    def __init__(self, source: Source | None):
+        self.source = source
         self._lock = threading.Lock()
-        self._cache: tuple[float, list[dict[str, Any]]] = (0.0, [])
-
-    def items(self) -> list[dict[str, Any]]:
-        if self.reader is None:
-            return []
-        with self._lock:
-            at, rows = self._cache
-            if time.monotonic() - at > CACHE_SECONDS:
-                rows = self.reader()
-                self._seed(rows)
-                self._cache = (time.monotonic(), rows)
-        return rows
-
-    def _seed(self, rows: list[dict[str, Any]]) -> None:
-        """Each Maxwell dossier gets its project folder once."""
-        names = {f["name"] for f in self.folders.list(KIND)}
-        for row in rows:
-            if row["kind"] == "dossier" and row["title"] not in names:
-                self.folders.create(KIND, row["title"], by="maxwell")
-
-    def movable(self, ref: str) -> bool:
-        return any(i["ref"] == ref and i["kind"] != "dossier" for i in self.items())
+        self._cache: tuple[float, dict[str, Any] | None] = (0.0, None)
 
     def view(self) -> dict[str, Any]:
-        rows = self.items()
-        return {**view(rows, self.folders.list(KIND), self.folders.items(KIND)), "connected": self.reader is not None}
+        if self.source is None:
+            return {"projects": [], "loose": [], "hidden": 0, "connected": False}
+        with self._lock:
+            at, cached = self._cache
+            if cached is None or time.monotonic() - at > CACHE_SECONDS:
+                cached = {**view(*self.source.read()), "connected": True}
+                self._cache = (time.monotonic(), cached)
+        return cached
+
+    def _changed(self) -> dict[str, Any]:
+        self._cache = (0.0, None)
+        return self.view()
+
+    def file(self, refs: list[str], slug: str | None) -> dict[str, Any]:
+        known = {p["id"] for p in self.view()["projects"]}
+        if slug is not None and slug not in known:
+            raise KeyError(slug)
+        self.source.file(refs, slug)
+        return self._changed()
+
+    def create(self, title: str, refs: list[str], by: str) -> dict[str, Any]:
+        slug = self.source.create(title, by)
+        if refs:
+            self.source.file(refs, slug)
+        return {**self._changed(), "created": slug}

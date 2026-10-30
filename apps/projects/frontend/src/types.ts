@@ -13,7 +13,7 @@ export interface Note extends NoteDraft {
   asset_name?: string;
 }
 
-export type Item = { ref: string; kind: "whiteboard" | "canvas" | "tasks" | "research"; title: string; status: string; steps: number; step: number; updated_at: string; linked?: boolean };
+export type Item = { ref: string; kind: "whiteboard" | "canvas" | "tasks" | "research"; title: string; status: string; steps: number; step: number; updated_at: string };
 export type Loose = Item & { refs: string[]; suggest: string | null };
-export type Project = { id: string; title: string; origin: "maxwell" | "here"; updated_at: string; items: Item[]; archived: number; steps: number; done: number };
-export type Portfolio = { projects: Project[]; loose: Loose[]; hidden: number; connected: boolean };
+export type Project = { id: string; title: string; dossier: string | null; updated_at: string; items: Item[]; archived: number; steps: number; done: number };
+export type Portfolio = { projects: Project[]; loose: Loose[]; hidden: number; connected: boolean; created?: string };

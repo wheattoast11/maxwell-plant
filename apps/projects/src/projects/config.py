@@ -10,7 +10,7 @@ Secrets (the app key) are never logged or stored by Projects.
 | ``PLANTCRAFT_APP_KEY_FILE`` | empty | File holding the app key (a Docker secret) |
 | ``PROJECTS_DATA_DIR`` | ``var`` | Folder of the SQLite database |
 | ``PROJECTS_ROOT_PATH`` | ``/projects`` | Path prefix of the interface and API |
-| ``PROJECTS_MAXWELL_DSN_FILE`` | empty | File holding the Maxwell portal database DSN, read-only (empty: no portfolio) |
+| ``PROJECTS_MAXWELL_DSN_FILE`` | empty | File holding the DSN of role maxwell_projects on the Maxwell portal database (empty: no portfolio) |
 """
 
 from __future__ import annotations

@@ -40,7 +40,7 @@ def create_app(runtime: Runtime | None = None) -> FastAPI:
         title="Projects",
         version=__version__,
         files=FILES,
-        routers=(portfolio.router, portfolio.folders, notes.router, search.router, refs.router, widgets.router),
+        routers=(portfolio.router, notes.router, search.router, refs.router, widgets.router),
         ui=ui_folder(),
         me=me,
     )

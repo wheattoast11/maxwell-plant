@@ -1,4 +1,4 @@
-import { DataTable, folderApi } from "@plantcraft/ui";
+import { DataTable } from "@plantcraft/ui";
 import { useEffect, useState, type DragEvent } from "react";
 import { api } from "./api";
 import { formatAgo, t } from "./i18n";
@@ -29,12 +29,10 @@ export function Gear({ project }: { project: Project }) {
 function usePortfolio() {
   const [data, setData] = useState<Portfolio | null>(null);
   const [error, setError] = useState("");
-  const load = () => api.portfolio().then(setData).catch((err) => setError(message(err)));
-  useEffect(() => { void load(); }, []);
-  const move = (refs: string[], projectId: string) =>
-    Promise.all(refs.map((ref) => folderApi.move("item", ref, projectId))).then(load).catch((err) => setError(message(err)));
-  const start = (title: string, refs: string[]) =>
-    folderApi.create("item", title).then((folder) => move(refs, folder.folder_id)).catch((err) => setError(message(err)));
+  const run = (call: Promise<Portfolio>) => call.then(setData).catch((err) => setError(message(err)));
+  useEffect(() => { void run(api.portfolio()); }, []);
+  const move = (refs: string[], projectId: string | null) => run(api.file(refs, projectId));
+  const start = (title: string, refs: string[]) => run(api.startProject(title, refs));
   return { data, error, move, start };
 }
 
@@ -102,7 +100,7 @@ export function ProjectPage({ projectId }: { projectId: string }) {
         { key: "when", label: t("Changed"), sort: (i) => i.updated_at, render: (i) => formatAgo(i.updated_at) },
         { key: "move", label: "", render: (i) => <>
           <MoveTo projects={data.projects} current={project.id} onMove={(id) => void move([i.ref], id)} />
-          {!i.linked && <button className="pf-act" onClick={() => void move([i.ref], "")}>{t("Remove")}</button>}
+          <button className="pf-act" onClick={() => void move([i.ref], null)}>{t("Remove")}</button>
         </> },
       ]} />
     {project.archived > 0 && <p className="pf-quiet">{t("{n} archived items are not shown.", { n: project.archived })}</p>}

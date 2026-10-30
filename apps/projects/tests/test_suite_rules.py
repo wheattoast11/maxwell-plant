@@ -27,7 +27,7 @@ LAYERS = {"i18n": -1, "config": 0, "meta": 0, "workpiece": 0, "suite": 1, "notes
 def test_offline_by_default():
     # The portfolio reads the Maxwell portal database, read-only, when a DSN is configured.
     assert not apptest.offline_problems(
-        ROOT, "projects", network_modules=("api/runtime.py", "portfolio/sources.py")
+        ROOT, "projects", network_modules=("api/runtime.py", "portfolio/maxwell_db.py")
     )
 
 
